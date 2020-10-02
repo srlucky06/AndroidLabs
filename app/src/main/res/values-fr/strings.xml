@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources><string name="app_name">Android Labs</string>
     <string name="hello_message">Bonjour!</string>
-    <string name="ButtonText">JE SUIS UN BOUTON</string></resources>
+    <string name="ButtonText">JE SUIS UN BOUTON</string>
+    <string name="undo">annuler</string>
+    <string name="GUI_name">Regardez mon GUI</string>
+    <string name="check_this_out">Regarde ca!</string>
+    <string name="click_here">CLIQUEZ ICI</string>
+    <string name="toast_message">Voici plus d\'informations</string>
+    <string name="switch_on">L\'interrupteur est maintenant sur ON</string>
+    <string name="switch_on_off">Allumer / éteindre</string>
+    <string name="type_here">Écrivez ici</string>
+    <string name="switch_off">L\'interrupteur est OFF</string>
+</resources>
