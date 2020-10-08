@@ -1,62 +1,52 @@
 package com.example.androidlabs;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.Switch;
-import android.widget.Toast;
-
+import android.widget.EditText;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
-    private Button clickHereButton;
-    private Switch switchOnOff;
-    private View mainContainer;
+
+      EditText typeField;
+    SharedPreferences prefs = null;
+    private String stringToSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_linear);
-//        setContentView(R.layout.activity_main_grid);
-//        setContentView(R.layout.activity_main_relative);
+        setContentView(R.layout.activity_main);
 
-        clickHereButton = findViewById(R.id.clickHereButton);
-        //switchOnOff = findViewById(R.id.switchOnOff);
-        // mainContainer = findViewById(R.id.mainContainer);
+        typeField = findViewById(R.id.typeEmail);
+        Button saveButton = findViewById(R.id.loginBtn);
 
-        clickHereButton.setOnClickListener((v) -> {
+        prefs = getSharedPreferences("FileName", Context.MODE_PRIVATE);
+        String savedString = prefs.getString("ReserveName", " ");
+        typeField.setText(savedString);
 
-                    Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_message), Toast.LENGTH_LONG).show();
+        Intent goToProfile = new Intent(MainActivity.this, ProfileActivity.class);
 
-                }
-        );
-        switchOnOff = findViewById(R.id.switchOnOff);
-        switchOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-
-                    Snackbar.make(switchOnOff, getResources().getString(R.string.switch_on), Snackbar.LENGTH_LONG)
-                            .setAction(R.string.undo, v -> {
-                                switchOnOff.setChecked(false);
-                            })
-                            .show();
-
-                } else {
-                    Snackbar.make(switchOnOff, getResources().getString(R.string.switch_off), Snackbar.LENGTH_LONG)
-                            .setAction(R.string.undo, v -> {
-                                switchOnOff.setChecked(true);
-                            })
-                            .show();
-                }
-            }
+        saveButton.setOnClickListener(click ->
+        {
+            goToProfile.putExtra("emailTyped", typeField.getText().toString());
+            startActivity(goToProfile);
         });
+    }
 
+    private void saveSharedPrefs(String stringToSave) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("ReserveName", stringToSave);
+        editor.commit();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stringToSave = typeField.getText().toString();
+        saveSharedPrefs(stringToSave);
 
     }
 }
-
-
