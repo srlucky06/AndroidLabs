@@ -1,15 +1,27 @@
 <resources>
     <string name="app_name">Android Labs</string>
-    <string name="hello_message">Hello world!</string>
-    <string name="ButtonText">I\’m a button</string>
+    <string name="Hello_message">Hello World!</string>
+    <string name="ButtonText">I’m a button</string>
     <string name="switch_off">The switch is now OFF</string>
-    <string name="switch_on" >The switch is now ON</string>
-    <string name="toast_message" >Here is more Information</string>
-    <string name="check_this_out" >Check this out!</string>
-    <string name="click_here" >CLICK HERE</string>
-    <string name="switch_on_off" >Switch on/off</string>
-    <string name="type_here" >Type here</string>
+    <string name="switch_on">The switch is now ON</string>
+    <string name="toast_message">Here is more Information</string>
+    <string name="check_this_out">Check this out!</string>
+    <string name="click_here">CLICK HERE</string>
+    <string name="switch_on_off">Switch on/off</string>
+    <string name="type_here">Type here</string>
     <string name="GUI_name">Look at my GUI</string>
     <string name="undo">Undo</string>
-
+    <string name="emailAddress">Enter your email address</string>
+    <string name="typeEmail">Type email here</string>
+    <string name="typePassword">Type your password</string>
+    <string name="loginBtn">Login</string>
+    <string name="yourProfile">Your profile</string>
+    <string name="yourName">Your name</string>
+    <string name="enterName">Enter your name</string>
+    <string name="yourEmail">Your email</string>
+    <string name="enterEmail">Enter your Email</string>
+    <string name="yourPicture">Your picture</string>
+    <string name="clickTheButtonAboveToTakeAPicture">Click the button above to take a picture</string>
 </resources>
+
+
