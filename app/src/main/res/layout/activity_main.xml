@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/emailAddress"
-        android:textSize="30sp"
+        android:textSize="15sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +28,7 @@
 
     <TextView
         android:id="@+id/typePassword"
-        android:textSize="30sp"
+        android:textSize="15sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

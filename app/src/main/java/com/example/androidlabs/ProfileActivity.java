@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -32,6 +33,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         mImageButton =(ImageButton)findViewById(R.id.imageBtn);
         mImageButton.setOnClickListener(bt -> dispatchTakePictureIntent());
+
+        Button cbutton = findViewById(R.id.goToChat);
+        Intent goToChat =new Intent(this, ChatRoomActivity.class);
+        cbutton.setOnClickListener(Click -> startActivity(goToChat));
 
     }
     private void dispatchTakePictureIntent() {

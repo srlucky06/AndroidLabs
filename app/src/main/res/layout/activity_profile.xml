@@ -11,7 +11,7 @@ tools:context=".MainActivity">
     android:id="@+id/yourProfile"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="30sp"
+    android:textSize="15sp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
@@ -22,7 +22,7 @@ tools:context=".MainActivity">
     android:id="@+id/yourName"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="30sp"
+    android:textSize="15sp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
@@ -41,7 +41,7 @@ tools:context=".MainActivity">
     android:id="@+id/yourEmail"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="30sp"
+    android:textSize="15sp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
@@ -65,7 +65,7 @@ tools:context=".MainActivity">
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     android:text="@string/yourPicture"
-    android:textSize="30sp" />
+    android:textSize="15sp" />
 
 <ImageButton
     android:id="@+id/imageBtn"
@@ -78,10 +78,17 @@ tools:context=".MainActivity">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="@string/clickTheButtonAboveToTakeAPicture"
-    android:textSize="30sp"
+    android:textSize="15sp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/goToChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ButtonTextcb"/>
+
 
 </LinearLayout>
