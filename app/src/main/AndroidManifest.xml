@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Message"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,17 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ChatRoomActivity"></activity>
-        <activity android:name=".SentMessage" />
-        <activity android:name=".ReceiveMessage" />
+        <activity android:name=".ChatRoomActivity" />
         <activity android:name=".ProfileActivity" />
     </application>
 
 </manifest>
-
-
-
-
-
-
-

@@ -2,50 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
 
     <TextView
-        android:id="@+id/emailAddress"
-        android:textSize="15sp"
+        android:id="@+id/yourEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/emailAddress"/>
+        android:text="@string/emailAdd" />
 
     <EditText
-        android:id="@+id/typeEmail"
+        android:id="@+id/typeEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ems="10"
         android:inputType="textEmailAddress"
         android:hint="@string/typeEmail" />
 
     <TextView
-        android:id="@+id/typePassword"
-        android:textSize="15sp"
+        android:id="@+id/yourPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/typePassword"/>
+        android:text="@string/typePassword" />
 
     <EditText
-        android:id="@+id/blank"
+        android:id="@+id/typePassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword" />
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text="" />
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/buttonToNextPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/loginBtn" />
+        android:text="@string/login" />
 </LinearLayout>
+

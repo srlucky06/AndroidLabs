@@ -1,36 +1,38 @@
 package com.example.androidlabs;
 
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-
 
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
-      EditText typeField;
-    SharedPreferences prefs = null;
+
+    SharedPreferences pref = null;
+    EditText typeField;
     private String stringToSave;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        typeField = findViewById(R.id.typeEmail);
-        Button saveButton = findViewById(R.id.loginBtn);
+        typeField = findViewById(R.id.typeEmailAddress);
+        Button saveButton = findViewById(R.id.buttonToNextPage);
 
-        prefs = getSharedPreferences("FileName", Context.MODE_PRIVATE);
-        String savedString = prefs.getString("ReserveName", " ");
+        pref = getSharedPreferences("FileName", Context.MODE_PRIVATE);
+        String savedString = pref.getString("ReserveName", " ");//???
         typeField.setText(savedString);
 
-        Intent goToProfile = new Intent(MainActivity.this, ProfileActivity.class);
+        Intent goToProfile = new Intent(this, ProfileActivity.class);
 
         saveButton.setOnClickListener(click ->
         {
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveSharedPrefs(String stringToSave) {
-        SharedPreferences.Editor editor = prefs.edit();
+        SharedPreferences.Editor editor = pref.edit();
         editor.putString("ReserveName", stringToSave);
         editor.commit();
     }

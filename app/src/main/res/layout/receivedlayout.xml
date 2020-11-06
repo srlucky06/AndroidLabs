@@ -4,18 +4,17 @@
     android:layout_height="match_parent">
 
     <View
-        android:id="@+id/sendImage"
-        android:layout_alignParentRight="true"
+        android:id="@+id/receiveImage"
+        android:layout_alignParentLeft="true"
         android:scaleType="centerInside"
-        android:background="@drawable/row_send"
+        android:background="@drawable/row_receive"
         android:layout_gravity="fill"
         android:layout_width="50dp"
         android:layout_height="50dp" />
 
     <TextView
-        android:id="@+id/msgSent"
-        android:layout_marginLeft="15dp"
-        android:layout_toLeftOf="@+id/sendImage"
+        android:id="@+id/receiveMessage"
+        android:layout_toRightOf="@+id/receiveImage"
         android:layout_gravity="fill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

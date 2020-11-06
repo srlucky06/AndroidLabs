@@ -1,60 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ChatRoomActivity">
+    android:layout_height="match_parent">
+
+
 
 
     <ListView
-        android:id="@+id/list_item"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@null"
-        android:divider="@null"
-        android:transcriptMode="alwaysScroll">
-
-    </ListView>
-
-    <LinearLayout
+        android:id="@+id/listView"
+        android:dividerHeight="0dp"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/sendButton"/>
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        tools:context=".ChatRoomActivity">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/sendButton"/>
 
+    <EditText
+        android:id="@+id/chatEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/sendButton"
+        android:layout_toLeftOf="@id/receiveButton"
+        android:hint="@string/edit_bar"/>
 
-        <Button
-            android:id="@+id/BtnSend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/BtnSend" />
-
-
-        <EditText
-            android:id="@+id/typeText"
-            android:layout_width="173dp"
-            android:layout_height="fill_parent"
-            android:ems="10"
-            android:hint="type here"
-            android:inputType="textPersonName" />
-
-
-        <Button
-            android:id="@+id/BtnReceive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/BtnReceive" />
-    </LinearLayout>
-
-
-
-
-</LinearLayout>
-
-
+    <Button
+        android:id="@+id/receiveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/receiveButton"/>
+</RelativeLayout>

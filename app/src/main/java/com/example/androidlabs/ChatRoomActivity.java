@@ -3,8 +3,11 @@ package com.example.androidlabs;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,187 +18,206 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
-
 
 public class ChatRoomActivity extends AppCompatActivity {
 
-    private List<Message> list = new ArrayList<>();
-    Message msg = null;
-    //  ListView itemList;
+    private ArrayList<Message> list = new ArrayList<>();
+    private MessageAdaptor myAdapter;
+    private EditText chat;
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_chat_room);
 
-        ListView itemList = (ListView) findViewById(R.id.list_item);
-        ChatAdapter a = new ChatAdapter();
-        itemList.setAdapter(a);
+        ListView myList = findViewById(R.id.listView);
+
+        loadDataFromDatabase();
+
+        myList.setAdapter(myAdapter = new MessageAdaptor());
 
 
-        Button sendButton = findViewById(R.id.BtnSend);
-        sendButton.setOnClickListener(click -> {
-            EditText msgReturned = findViewById(R.id.typeText);
-            list.add(new Message(msgReturned.getText().toString(), "send"));
+        myList.setOnItemLongClickListener((parent, view, position, id) -> {
+            Message selectedMessage = list.get(position);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(getResources().getString(R.string.wantdelete))
 
+                    .setMessage(getResources().getString(R.string.selectedrow) + position + "\n" + (getResources().getString(R.string.thedatabaseid) + id))
 
-            //            ChatAdapter cht = new ChatAdapter(list, getApplicationContext());
-            //itemList.setAdapter(cht);
-            msgReturned.setText("");
-            a.notifyDataSetChanged();
-        });
-        Button recButton = findViewById(R.id.BtnReceive);
-        recButton.setOnClickListener(click -> {
-            EditText msgReturned = findViewById(R.id.typeText);
-            list.add(new Message(msgReturned.getText().toString(), "receive"));
+                    .setPositiveButton((getResources().getString(R.string.yes)), (click, arg) -> {
+                        deleteMessage(selectedMessage);
+                        list.remove(position);
+                        myAdapter.notifyDataSetChanged();
+                    }).setNegativeButton((getResources().getString(R.string.no)), (click, arg) -> {
+            })
 
+                    .create().show();
 
-            //            ChatAdapter cht = new ChatAdapter(list, getApplicationContext());
-            //itemList.setAdapter(cht);
-            msgReturned.setText("");
-            a.notifyDataSetChanged();
-        });
-
-
-        itemList.setOnItemLongClickListener((parent, view, position, id) -> {
-            AlertDialog.Builder alertDialogBuilder = new  AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle(getResources().getString(R.string.deletemessage));
-            alertDialogBuilder.setMessage(getResources().getString(R.string.rowMessage)  + position + "\n"
-                    + (getResources().getString(R.string.datebaseid) + id));
-            alertDialogBuilder.setPositiveButton((getResources().getString(R.string.yesMessage)), (click, arg) -> {
-                list.remove(position);
-                a.notifyDataSetChanged();
-            });
-            alertDialogBuilder.setNegativeButton((getResources().getString(R.string.noMessage)), (click, arg) -> {});
-            alertDialogBuilder.create().show();
             return true;
+        });
+
+
+        chat = findViewById(R.id.chatEditText);
+
+        Button sendButton = findViewById(R.id.sendButton);
+        sendButton.setOnClickListener(click -> {
+            String sendText = chat.getText().toString();
+
+            ContentValues newRowValue = new ContentValues();
+
+            //Now provide a value for every database column defined in MyOpener.java:
+            //put string name in the NAME column:
+            newRowValue.put(MyOpener.COL_MESSAGE, sendText);
+            newRowValue.put(MyOpener.COL_ISRECEIVEDMESSAGE, 0);
+
+            //Now insert in the database:
+            long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValue);
+
+            Message sendMessage = new Message(sendText, false, newId);
+            list.add(sendMessage);
+            chat.setText("");
+
+            myAdapter.notifyDataSetChanged();
+
 
         });
-    }
-    //inner class Message
-    public class Message {
-        private String input;
-        private String task;
 
-        public Message(String input, String task) {
-            this.input = input;
-            this.task = task;
-        }
+        Button receiveButton = findViewById(R.id.receiveButton);
+        receiveButton.setOnClickListener(click -> {
+            String receiveText = chat.getText().toString();
 
-        public String getInput() {
-            return input;
-        }
-        public String getTask() {
+            ContentValues newRowValue = new ContentValues();
 
-            return task;
-        }
+            //Now provide a value for every database column defined in MyOpener.java:
+            //put string name in the NAME column:
+            newRowValue.put(MyOpener.COL_MESSAGE, receiveText);
+            newRowValue.put(MyOpener.COL_ISRECEIVEDMESSAGE, 1);
 
-        public void setInput(String input) {
 
-            this.input = input;
-        }
+            //Now insert in the database:
+            long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValue);
 
-        public void setTask(String task) {
 
-            this.task = task;
-        }
+            Message receiveMessage = new Message(receiveText, true, newId);
+            list.add(receiveMessage);
+            chat.setText("");
+            myAdapter.notifyDataSetChanged();
+        });
+
+
+        EditText chat = findViewById(R.id.chatEditText);
+
     }
 
-    public class ChatAdapter extends BaseAdapter {
-        // List<Message> messageList = new ArrayList<>();
-        Context context;
+    private void loadDataFromDatabase() {
+        //get a database connection:
+        MyOpener dbOpener = new MyOpener(this);
+        db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
 
-        @Override
-        public long getItemId(int position) {
-            return position;
+
+        // We want to get all of the columns. Look at MyOpener.java for the definitions:
+        String[] columns = {MyOpener.COL_ID, MyOpener.COL_MESSAGE, MyOpener.COL_ISRECEIVEDMESSAGE};
+        //query all the results from the database:
+        Cursor results = db.query(false, MyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
+
+        //Now the results object has rows of results that match the query.
+        //find the column indices:
+
+        int messageIndex = results.getColumnIndex(MyOpener.COL_MESSAGE);
+        int isReceivedIndex = results.getColumnIndex(MyOpener.COL_ISRECEIVEDMESSAGE);
+        int idColIndex = results.getColumnIndex(MyOpener.COL_ID);
+        //iterate over the results, return true if there is a next item:
+        while (results.moveToNext()) {
+            String message = results.getString(messageIndex);
+            String isReceived = results.getString(isReceivedIndex);
+            boolean isReceivedMessage = isReceived.equals("1") ? true : false;
+
+            long id = results.getLong(idColIndex);
+
+            //add the new Contact to the array list:
+            list.add(new Message(message, isReceivedMessage, id));
         }
+        printCursor(results, db.getVersion());
+    }
 
-
-        @Override
-        public Message getItem(int position) {
-            return list.get(position);
+    private void printCursor(Cursor c, int version) {
+        Log.i("database version number", String.valueOf(version));
+        Log.i("Number of the columns ", String.valueOf(c.getColumnCount()));
+        for (String col : c.getColumnNames()) {
+            Log.i("Name of the columns ", col);
         }
+        Log.i("Number of rows ", String.valueOf(c.getCount()));
 
-
-        @Override
-        public View getView(int p, View convertView, ViewGroup parent) {
-            View newView = convertView;
-            Message m = getItem(p);
-
-
-            if (newView == null) {
-                newView = getLayoutInflater().inflate(R.layout.activity_chat_room, parent, false);
+        if (c.moveToFirst()) {
+            while (!c.isAfterLast()) {
+                String id = c.getString(c.getColumnIndex("_id"));
+                String message = c.getString(c.getColumnIndex("MESSAGE"));
+                String isReceived = c.getString(c.getColumnIndex("isReceived"));
+                Log.i("The row value is", id + " " + message + " " + isReceived);
+                c.moveToNext();
             }
-
-            if (m.getTask().equals("send")) {
-
-                newView = getLayoutInflater().inflate(R.layout.activity_sendmessage, null);
-                TextView msgArea = (TextView) newView.findViewById(R.id.msgSent);
-                msgArea.setText(m.getInput());
-
-
-            } else {
-                newView = getLayoutInflater().inflate(R.layout.activity_receivedmessage, null);
-                TextView msgArea = (TextView) newView.findViewById(R.id.msgReceived);
-                msgArea.setText(m.getInput());
-            }
-            return newView;
         }
+
+    }
+
+
+    protected void updateContact(Message c) {
+        //Create a ContentValues object to represent a database row:
+        ContentValues updatedValues = new ContentValues();
+        updatedValues.put(MyOpener.COL_MESSAGE, c.getMessage());
+        updatedValues.put(MyOpener.COL_ISRECEIVEDMESSAGE, c.getReceivedMessage());
+
+        //now call the update function:
+        db.update(MyOpener.TABLE_NAME, updatedValues, MyOpener.COL_ID + "= ?", new String[]{Long.toString(c.getDatabaseId())});
+    }
+
+    protected void deleteMessage(Message c) {
+        db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + "= ?", new String[]{Long.toString(c.getDatabaseId())});
+    }
+
+
+    private class MessageAdaptor extends BaseAdapter {
 
         @Override
         public int getCount() {
             return list.size();
         }
 
+        @Override
+        public Message getItem(int position) {
+            return list.get(position);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = getLayoutInflater();
+            View newView = convertView;
+
+            if (list.get(position).getReceivedMessage()) {
+                newView = inflater.inflate(R.layout.receivedlayout, parent, false);
+                TextView tv = newView.findViewById(R.id.receiveMessage);
+                tv.setText(getItem(position).getMessage());
+
+            } else {
+                newView = inflater.inflate(R.layout.sendlayout, parent, false);
+                TextView tv = newView.findViewById(R.id.sendMessage);
+                tv.setText(getItem(position).getMessage());
+
+            }
+
+            return newView;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return getItem(position).getDatabaseId();
+        }
+
     }
 }
 
 
-/*
 
-           myList.setOnItemClickListener(p,b,pos,id)->{
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("A title")
-                    .setMessage("Do you want to add stuff")
-                    .setNegativeButton("No", (click, arg) -> { })
 
-                    //An optional third button:
-                    .setNeutralButton("Maybe", (click, arg) -> {  })
-
-                    //You can add extra layout elements:
-                    .setView(getLayoutInflater().inflate(R.layout.row_layout, null) )
-
-                    //Show the dialog
-                    .create().show();
-            return true;
-        });
-        SwipeRefreshLayout refresher = findViewById(R.id.refresher);
-        refresher.setOnRefreshListener( () -> refresher.setRefreshing(false)  );
-    }
-
-        private MyListAdapter extends BaseAdapter {
-            int getCount(){
-                return list.size();
-
-            }
-
-        public Object getItem(int position){
-            return list.get(position);
-        }
-        public View getView(int position, View convertView, ViewGroup parent) {
-              View newView= convertView;
-            //layoutInflater to load the XML file
-            LayoutInflater inflater = getLayoutInflater();
-            newView = inflater.inflate(R.layout.filename, parent, false );
-            newView.findViewById(R.id.typeText);
-            name.setText( getItem(position ).toString()  );
-
-            return newView;
-
-        }
-        long getItemId(int i){
-            return number:position;
-        }
-    }
-}*/
