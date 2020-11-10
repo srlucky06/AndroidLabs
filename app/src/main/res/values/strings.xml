@@ -11,28 +11,28 @@
     <string name="edit_bar">Type here</string>
     <string name="GUI_name">Look at my GUI</string>
     <string name="undo">Undo</string>
-    <string name="EnterYourEmail">Enter your email address</string>
+    <string name="emailAddress">Enter your email address</string>
     <string name="typeEmail">Type email here</string>
     <string name="typePassword">Type your password</string>
-    <string name="login">Login</string>
+    <string name="loginBtn">Login</string>
     <string name="yourProfile">Your profile</string>
     <string name="yourName">Your name</string>
-    <string name="editName">Enter your name</string>
+    <string name="enterName">Enter your name</string>
     <string name="yourEmail">Your email</string>
-    <string name="emailAdd">Enter your Email</string>
-    <string name="picture">Your picture</string>
-    <string name="pictureMessage">Click the button above to take a picture</string>
+    <string name="enterEmail">Enter your Email</string>
+    <string name="yourpicture">Your picture</string>
+    <string name="clickTheButtonAboveToTakeAPicture">Click the button above to take a picture</string>
 
     <string name="chatButton">Go to chat</string>
-    <string name="sendButton">SEND</string>
-    <string name="receiveButton">RECEIVE</string>
+    <string name="BtnSend">SEND</string>
+    <string name="BtnReceive">RECEIVE</string>
     <string name="RcvTextView">Received text</string>
     <string name="SentTextView">Sent Text</string>
-    <string name="wantdelete">Do you want to delete this?</string>
-    <string name="selectedrow">The selected row is</string>
-    <string name="thedatabaseid">The database id is</string>
-    <string name="yes">Yes</string>
-    <string name="no">no</string>
+    <string name="deleteMessae">Do you want to delete this?</string>
+    <string name="rowMessage">The selected row is</string>
+    <string name="datebaseid">The database id is</string>
+    <string name="yesMessage">Yes</string>
+    <string name="noMessage">no</string>
 
 
 </resources>

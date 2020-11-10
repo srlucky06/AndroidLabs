@@ -13,7 +13,7 @@ android:layout_height="match_parent">
     android:layout_height="50dp" />
 
 <TextView
-    android:id="@+id/sendMessage"
+    android:id="@+id/msgSent"
     android:layout_marginLeft="15dp"
     android:layout_toLeftOf="@+id/sendImage"
     android:layout_gravity="fill"

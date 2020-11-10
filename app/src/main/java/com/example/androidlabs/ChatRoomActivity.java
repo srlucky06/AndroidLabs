@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
+
 public class ChatRoomActivity extends AppCompatActivity {
 
     private ArrayList<Message> list = new ArrayList<>();
@@ -42,15 +44,15 @@ public class ChatRoomActivity extends AppCompatActivity {
         myList.setOnItemLongClickListener((parent, view, position, id) -> {
             Message selectedMessage = list.get(position);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle(getResources().getString(R.string.wantdelete))
+            alertDialogBuilder.setTitle(getResources().getString(R.string.deleteMessae))
 
-                    .setMessage(getResources().getString(R.string.selectedrow) + position + "\n" + (getResources().getString(R.string.thedatabaseid) + id))
+                    .setMessage(getResources().getString(R.string.rowMessage) + position + "\n" + (getResources().getString(R.string.datebaseid) + id))
 
-                    .setPositiveButton((getResources().getString(R.string.yes)), (click, arg) -> {
+                    .setPositiveButton((getResources().getString(R.string.yesMessage)), (click, arg) -> {
                         deleteMessage(selectedMessage);
                         list.remove(position);
                         myAdapter.notifyDataSetChanged();
-                    }).setNegativeButton((getResources().getString(R.string.no)), (click, arg) -> {
+                    }).setNegativeButton((getResources().getString(R.string.noMessage)), (click, arg) -> {
             })
 
                     .create().show();
@@ -58,10 +60,9 @@ public class ChatRoomActivity extends AppCompatActivity {
             return true;
         });
 
-
         chat = findViewById(R.id.chatEditText);
 
-        Button sendButton = findViewById(R.id.sendButton);
+        Button sendButton = findViewById(R.id.BtnSend);
         sendButton.setOnClickListener(click -> {
             String sendText = chat.getText().toString();
 
@@ -84,7 +85,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         });
 
-        Button receiveButton = findViewById(R.id.receiveButton);
+        Button receiveButton = findViewById(R.id.BtnReceive);
         receiveButton.setOnClickListener(click -> {
             String receiveText = chat.getText().toString();
 
@@ -197,12 +198,12 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             if (list.get(position).getReceivedMessage()) {
                 newView = inflater.inflate(R.layout.receivedlayout, parent, false);
-                TextView tv = newView.findViewById(R.id.receiveMessage);
+                TextView tv = newView.findViewById(R.id.msgReceived);
                 tv.setText(getItem(position).getMessage());
 
             } else {
                 newView = inflater.inflate(R.layout.sendlayout, parent, false);
-                TextView tv = newView.findViewById(R.id.sendMessage);
+                TextView tv = newView.findViewById(R.id.msgSent);
                 tv.setText(getItem(position).getMessage());
 
             }

@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        typeField = findViewById(R.id.typeEmailAddress);
-        Button saveButton = findViewById(R.id.buttonToNextPage);
+        typeField = findViewById(R.id.typeEmail);
+        Button saveButton = findViewById(R.id.loginBtn);
 
         pref = getSharedPreferences("FileName", Context.MODE_PRIVATE);
         String savedString = pref.getString("ReserveName", " ");//???

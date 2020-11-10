@@ -12,10 +12,10 @@
         android:id="@+id/yourEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/emailAdd" />
+        android:text="@string/enterEmail" />
 
     <EditText
-        android:id="@+id/typeEmailAddress"
+        android:id="@+id/typeEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -37,9 +37,9 @@
         android:text="" />
 
     <Button
-        android:id="@+id/buttonToNextPage"
+        android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login" />
+        android:text="@string/loginBtn" />
 </LinearLayout>
 

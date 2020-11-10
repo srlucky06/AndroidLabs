@@ -8,12 +8,11 @@
     tools:context=".ProfileActivity">
 
 
-
-
 <TextView
         android:id="@+id/yourProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="15sp"
         android:text="@string/yourProfile" />
 
     <TextView
@@ -23,12 +22,12 @@
         android:text="@string/yourName" />
 
     <EditText
-        android:id="@+id/editName"
+        android:id="@+id/enterName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="@string/editName" />
+        android:hint="@string/enterName" />
 
     <TextView
         android:id="@+id/yourEmail"
@@ -42,13 +41,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:hint="@string/EnterYourEmail" />
+        android:hint="@string/emailAddress" />
 
     <TextView
         android:id="@+id/yourPicture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/picture" />
+        android:text="@string/yourpicture" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -57,13 +56,13 @@
         app:srcCompat="@android:drawable/picture_frame" />
 
     <TextView
-        android:id="@+id/takePictureText"
+        android:id="@+id/clickTheButtonAboveToTakeAPicture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pictureMessage" />
+        android:text="@string/clickTheButtonAboveToTakeAPicture" />
 
     <Button
-        android:id="@+id/chatButton"
+        android:id="@+id/goToChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/chatButton"/>

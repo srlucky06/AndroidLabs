@@ -10,29 +10,29 @@
         android:dividerHeight="0dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/sendButton"/>
+        android:layout_above="@id/BtnSend"/>
     <Button
-        android:id="@+id/sendButton"
+        android:id="@+id/BtnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:text="@string/sendButton"/>
+        android:text="@string/BtnSend"/>
 
     <EditText
         android:id="@+id/chatEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/sendButton"
-        android:layout_toLeftOf="@id/receiveButton"
+        android:layout_toRightOf="@id/BtnSend"
+        android:layout_toLeftOf="@id/BtnReceive"
         android:hint="@string/edit_bar"/>
 
     <Button
-        android:id="@+id/receiveButton"
+        android:id="@+id/BtnReceive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:text="@string/receiveButton"/>
+        android:text="@string/BtnReceive"/>
 </RelativeLayout>
