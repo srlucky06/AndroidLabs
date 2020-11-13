@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android Labs</string>
+    <string name="app_name">Application Name</string>
     <string name="Hello_message">Hello World!</string>
     <string name="ButtonText">I’m a button</string>
     <string name="switch_off">The switch is now OFF</string>
@@ -33,6 +33,11 @@
     <string name="datebaseid">The database id is</string>
     <string name="yesMessage">Yes</string>
     <string name="noMessage">no</string>
+    <string name="currentTemp">Current Temparature</string>
+    <string name="minTemp">Minimum Temparature</string>
+    <string name="maxTemp">Maximum Temparature</string>
+    <string name="uvRating">UV Rating</string>
+    <string name="weatherButton">weather Forecast</string>
 
 
 </resources>
