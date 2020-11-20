@@ -2,8 +2,10 @@ package com.example.androidlabs;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,10 +26,16 @@ import java.util.ArrayList;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
-    private ArrayList<Message> list = new ArrayList<>();
+    private ArrayList<Message> mList = new ArrayList<>();
     private MessageAdaptor myAdapter;
     private EditText chat;
+
     SQLiteDatabase db;
+    DetailsFragment dFragment;
+    public static final String MESSAGE_TEXT = "MESSAGE_TEXT";
+    public static final String  MESSAGE_TYPE = "IS_RECEIVED_MESSAGE";
+    public static final String MESSAGE_ID = "ID";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +44,42 @@ public class ChatRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_room);
 
         ListView myList = findViewById(R.id.listView);
+        boolean isTablet = findViewById(R.id.fragmentLocation) != null;
+
+
 
         loadDataFromDatabase();
 
         myList.setAdapter(myAdapter = new MessageAdaptor());
 
 
+       // myList.setOnItemLongClickListener((parent, view, position, id) -> {
+        myList.setOnItemClickListener((list, item, position, id) -> {
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString(MESSAGE_TEXT, (mList.get(position).getMessage()));
+            dataToPass.putBoolean(MESSAGE_TYPE, mList.get(position).getReceivedMessage());
+            dataToPass.putLong(MESSAGE_ID, id);
+
+
+            if(isTablet)
+            {
+                dFragment = new DetailsFragment(); //add a DetailFragment
+                dFragment.setArguments( dataToPass ); //pass it a bundle for information
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
+                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
+            }
+
+            else
+            {
+                Intent nextActivity = new Intent(ChatRoomActivity.this, EmtyActivity.class);
+                nextActivity.putExtras(dataToPass); //send data to next activity
+                startActivity(nextActivity); //make the transition
+            }
+        });
         myList.setOnItemLongClickListener((parent, view, position, id) -> {
-            Message selectedMessage = list.get(position);
+        Message selectedMessage = mList.get(position);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(getResources().getString(R.string.deleteMessae))
 
@@ -50,8 +87,11 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                     .setPositiveButton((getResources().getString(R.string.yesMessage)), (click, arg) -> {
                         deleteMessage(selectedMessage);
-                        list.remove(position);
+                        mList.remove(position);
                         myAdapter.notifyDataSetChanged();
+                        if(dFragment!= null)
+                            getSupportFragmentManager().beginTransaction().remove(dFragment).commit();
+
                     }).setNegativeButton((getResources().getString(R.string.noMessage)), (click, arg) -> {
             })
 
@@ -77,7 +117,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValue);
 
             Message sendMessage = new Message(sendText, false, newId);
-            list.add(sendMessage);
+            mList.add(sendMessage);
             chat.setText("");
 
             myAdapter.notifyDataSetChanged();
@@ -102,7 +142,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
             Message receiveMessage = new Message(receiveText, true, newId);
-            list.add(receiveMessage);
+            mList.add(receiveMessage);
             chat.setText("");
             myAdapter.notifyDataSetChanged();
         });
@@ -138,7 +178,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             long id = results.getLong(idColIndex);
 
             //add the new Contact to the array list:
-            list.add(new Message(message, isReceivedMessage, id));
+            mList.add(new Message(message, isReceivedMessage, id));
         }
         printCursor(results, db.getVersion());
     }
@@ -183,12 +223,12 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return list.size();
+            return mList.size();
         }
 
         @Override
         public Message getItem(int position) {
-            return list.get(position);
+            return mList.get(position);
         }
 
         @Override
@@ -196,7 +236,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             LayoutInflater inflater = getLayoutInflater();
             View newView = convertView;
 
-            if (list.get(position).getReceivedMessage()) {
+            if (mList.get(position).getReceivedMessage()) {
                 newView = inflater.inflate(R.layout.receivedlayout, parent, false);
                 TextView tv = newView.findViewById(R.id.msgReceived);
                 tv.setText(getItem(position).getMessage());

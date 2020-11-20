@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/listView"
+        android:dividerHeight="0dp"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_above="@id/BtnSend"/>
+
+    <FrameLayout
+        android:id="@+id/fragmentLocation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/listView"/>
+
+    <Button
+        android:id="@+id/BtnSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/BtnSend"/>
+
+    <EditText
+        android:id="@+id/chatEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/BtnSend"
+        android:layout_toLeftOf="@id/BtnReceive"
+        android:layout_alignRight="@id/listView"
+        android:hint="@string/edit_bar"/>
+
+    <Button
+        android:id="@+id/BtnReceive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@id/listView"
+        android:text="@string/BtnReceive"/>
+</RelativeLayout>
