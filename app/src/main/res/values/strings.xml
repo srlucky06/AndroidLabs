@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Application Name</string>
+    <string name="app_name">Android Labs</string>
     <string name="Hello_message">Hello World!</string>
     <string name="ButtonText">I’m a button</string>
     <string name="switch_off">The switch is now OFF</string>
@@ -22,7 +22,6 @@
     <string name="enterEmail">Enter your Email</string>
     <string name="yourpicture">Your picture</string>
     <string name="clickTheButtonAboveToTakeAPicture">Click the button above to take a picture</string>
-
     <string name="chatButton">Go to chat</string>
     <string name="BtnSend">SEND</string>
     <string name="BtnReceive">RECEIVE</string>
@@ -39,7 +38,6 @@
     <string name="uvRating">UV Rating</string>
     <string name="weatherButton">weather Forecast</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
