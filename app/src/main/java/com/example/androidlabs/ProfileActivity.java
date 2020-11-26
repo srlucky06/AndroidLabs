@@ -3,7 +3,6 @@ package com.example.androidlabs;
 
         import androidx.annotation.Nullable;
         import androidx.appcompat.app.AppCompatActivity;
-
         import android.content.Intent;
         import android.graphics.Bitmap;
         import android.os.Bundle;
@@ -45,7 +44,9 @@ public class ProfileActivity extends AppCompatActivity {
         Intent goToWeather = new Intent(this, WeatherForecast.class);
         weatherButton.setOnClickListener(click -> startActivity(goToWeather));
 
-
+        Button toolbarButton = findViewById(R.id.toolbarButton);
+        Intent goToToolbarPage = new Intent(this, TestToolbar.class);
+        toolbarButton.setOnClickListener(click -> startActivityForResult(goToToolbarPage, 500));
     }
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -64,9 +65,10 @@ public class ProfileActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             mImageButton.setImageBitmap(imageBitmap);
         }
+        if(resultCode==500){
+            finish();
+        }
     }
-
-
 
     @Override
     protected void onStart() {

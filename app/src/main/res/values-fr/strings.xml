@@ -39,5 +39,13 @@
     <string name = "maxTemp"> Température maximale </string>
     <string name = "uvRating"> Classement UV </string>
     <string name = "weatherButton"> Prévisions météo </string>
-
+    <string name = "searchItem">Download</string>
+    <string name = "emailItem"> Email </string>
+    <string name = "globeItem"> Globe </string>
+    <string name = "downloadItem"> Télécharger </string>
+    <string name = "chatPage"> Page de chat </string>
+    <string name = "weatherPage"> Page Météo </string>
+    <string name = "goBackPage"> Revenir à la connexion </string>
+    <string name="open">ouvert</string>
+    <string name="close">proche</string>
 </resources>

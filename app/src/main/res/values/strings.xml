@@ -37,6 +37,16 @@
     <string name="maxTemp">Maximum Temparature</string>
     <string name="uvRating">UV Rating</string>
     <string name="weatherButton">weather Forecast</string>
+    <string name="searchItem">Search</string>
+    <string name="emailItem">Email</string>
+    <string name="globeItem">Globe</string>
+    <string name="downloadItem">Download</string>
+    <string name="chatPage">Chat Page</string>
+    <string name="weatherPage">Weather Page</string>
+    <string name="goBackPage">Go back to login</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+
     <!-- TODO: Remove or change this placeholder text -->
 
 
