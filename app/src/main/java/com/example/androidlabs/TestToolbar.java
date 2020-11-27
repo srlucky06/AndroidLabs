@@ -68,17 +68,7 @@ public class TestToolbar extends AppCompatActivity {
                 // Inflate the menu items for use in the action bar
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.menueitem, menu);
-               MenuItem searchItem = menu.findItem(R.id.searchItem);
-        SearchView sView = (SearchView)searchItem.getActionView();
-        sView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) { return true; }
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;	}  });
-
-        return true;
-
+                return true;
         }
 
         @Override
